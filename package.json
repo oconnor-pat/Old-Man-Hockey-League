@@ -11,9 +11,13 @@
   },
   "dependencies": {
     "@types/styled-components": "^5.1.26",
+    "bootstrap": "^5.3.1",
+    "bootstrap-icons": "^1.10.5",
     "components": "^0.1.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2",
     "styled": "^1.0.0",
     "styled-components": "^5.3.11"
   },
