@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Link } from "react-router-dom";
 
 //Styled Components
 const StyledDiv = styled.div`
@@ -49,19 +50,19 @@ const Navbar: React.FC<NavbarProps> = (_props) => {
     <StyledDiv>
       <StyledUl>
         <li>
-          <a href="/homefeed">
+          <Link to="/homefeed">
             <StyledIcon className="bi bi-house"></StyledIcon>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/">
+          <Link to="/discover">
             <StyledIcon className="bi bi-search"></StyledIcon>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/">
+          <Link to="/profile">
             <StyledIcon className="bi bi-person"></StyledIcon>
-          </a>
+          </Link>
         </li>
       </StyledUl>
     </StyledDiv>
