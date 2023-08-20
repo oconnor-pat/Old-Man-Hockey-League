@@ -50,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = (_props) => {
     <StyledDiv>
       <StyledUl>
         <li>
-          <Link to="/homefeed">
+          <Link to="/">
             <StyledIcon className="bi bi-house"></StyledIcon>
           </Link>
         </li>

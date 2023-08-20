@@ -4,6 +4,7 @@ import Homefeed from "../src/components/Homefeed/Homefeed";
 import Profile from "../src/components/Profile/Profile";
 import NavBar from "../src/components/NavBar/NavBar";
 import Discover from "./components/Discover/Discover";
+import GlobalStyles from "./utils/GlobalStyles";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/discover" element={<Discover />} />
       </Routes>
+      <GlobalStyles />
     </Router>
   );
 }
