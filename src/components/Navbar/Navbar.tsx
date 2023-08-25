@@ -36,6 +36,19 @@ const StyledUl = styled.ul`
   }
 `;
 
+const StlyedNewPostButton = styled.button`
+  margin-left: 20px;
+  height: 35px;
+  width: 100px;
+  border-radius: 10px;
+  background-color: #447bbe;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+`;
+
 const StyledIcon = styled.i`
   font-size: 2rem;
 `;
@@ -48,6 +61,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = (_props) => {
   return (
     <StyledDiv>
+      <StlyedNewPostButton>New Post</StlyedNewPostButton>
       <StyledUl>
         <li>
           <Link to="/">

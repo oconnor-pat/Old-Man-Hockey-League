@@ -129,7 +129,7 @@ const StyledProfileBio = styled.div`
   border-radius: 10px;
 `;
 
-// I dont know why these don't work yet
+// I dont know why these don't work yet. Update: I figured it out.
 const StyledNYCWeatherContainer = styled.div`
   display: flex;
   flex-direction: column;
