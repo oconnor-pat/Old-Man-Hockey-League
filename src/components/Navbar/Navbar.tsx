@@ -1,7 +1,8 @@
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router-dom";
+import NewPostModel from "../NewPost/NewPostModel";
 
 //Styled Components
 const StyledDiv = styled.div`
@@ -53,15 +54,31 @@ const StyledIcon = styled.i`
   font-size: 2rem;
 `;
 
+//Interface
 interface NavbarProps {
   // TODO
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Navbar: React.FC<NavbarProps> = (_props) => {
+  const [isModelOpen, setIsModelOpen] = useState(false);
+
+  const openModel = () => {
+    setIsModelOpen(true);
+  };
+
+  const closeModel = () => {
+    setIsModelOpen(false);
+  };
+
+  const handleNewPost = (content: string) => {
+    // Implement how you want to handle the new post (e.g., send it to Homefeed)
+    console.log("New post content:", content);
+  };
+
   return (
     <StyledDiv>
-      <StlyedNewPostButton>New Post</StlyedNewPostButton>
+      <StlyedNewPostButton onClick={openModel}>New Post</StlyedNewPostButton>
       <StyledUl>
         <li>
           <Link to="/">
@@ -79,6 +96,11 @@ const Navbar: React.FC<NavbarProps> = (_props) => {
           </Link>
         </li>
       </StyledUl>
+      <NewPostModel
+        isOpen={isModelOpen}
+        onClose={closeModel}
+        onSubmit={handleNewPost}
+      />
     </StyledDiv>
   );
 };
