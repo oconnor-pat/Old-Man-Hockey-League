@@ -39,13 +39,9 @@ const StyledIcon = styled.i`
   font-size: 2rem;
 `;
 
-//Interface
-interface NavbarProps {
-  // TODO
-}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Navbar: React.FC<NavbarProps> = (_props) => {
+function Navbar() {
   return (
     <StyledDiv>
       <StyledUl>
@@ -67,6 +63,6 @@ const Navbar: React.FC<NavbarProps> = (_props) => {
       </StyledUl>
     </StyledDiv>
   );
-};
+}
 
 export default Navbar;

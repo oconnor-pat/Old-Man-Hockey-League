@@ -161,16 +161,6 @@ const StyledNewPostButton = styled.button`
   cursor: pointer;
 `;
 
-//Dummy data
-/*const posts: Post[] = [
-  { id: 1, content: "Post 1 content" },
-  { id: 2, content: "Post 2 content" },
-  { id: 3, content: "Post 3 content" },
-  { id: 4, content: "Post 4 content" },
-  { id: 5, content: "Post 5 content" },
-  { id: 6, content: "Post 6 content" },
-];*/
-
 function Homefeed() {
   const [focusedPost, setFocusedPost] = useState<number | null>(null);
   const [isCreatingPost, setIsCreatingPost] = useState(false);
