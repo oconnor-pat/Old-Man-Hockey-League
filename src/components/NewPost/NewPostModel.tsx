@@ -3,7 +3,16 @@ import styled from "styled-components";
 
 //Styled Components
 const ModelContainer = styled.div`
-  /* Your styling for the model container */
+display: flex;
+flex-direction: column;
+align-items: center;
+background-color: #B11313;
+width: 100%;
+height: 100px;
+padding-left: 20px;
+border-radius: 2px;
+border: 1px solid #fff;
+margin-bottom: 20px;
 `;
 
 const ModelInput = styled.textarea`
