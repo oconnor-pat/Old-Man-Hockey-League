@@ -1,9 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import NewPostModel from "../NewPost/NewPostModel";
 
-//Types
+//Interfaces
 interface StyledPostBoxProps {
   focused?: boolean;
 }
@@ -165,17 +164,30 @@ function Homefeed() {
   const [focusedPost, setFocusedPost] = useState<number | null>(null);
   const [isCreatingPost, setIsCreatingPost] = useState(false);
   const [userPosts, setUserPosts] = useState<Post[]>([]); // State to store user posts
+  const [newPostContent, setNewPostContent] = useState(""); // State to store new post content
 
   //Function to handle when a user clicks on a post
   const handlePostClick = (postIndex: number) => {
     setFocusedPost(focusedPost === postIndex ? null : postIndex);
   };
 
-  const handleCreatePost = (content: string) => {
+  // Function to handle when the "New Post" button is clicked
+  const handleNewPostButtonClick = () => {
+    setIsCreatingPost(true);
+  };
+
+  // Function to handle when the content of the new post changes
+  const handleNewPostContentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setNewPostContent(event.target.value);
+  };
+
+  const handleCreatePost = () => {
     // Create a new post object with a unique ID (you can use libraries like uuid for this)
     const newPost: Post = {
       id: userPosts.length + 1,
-      content: content,
+      content: newPostContent,
     };
 
     // Add the new post to the userPosts state
@@ -183,6 +195,14 @@ function Homefeed() {
 
     // Close the model and reset the state
     setIsCreatingPost(false);
+
+    // Clear the new post content
+    setNewPostContent("");
+  };
+
+  const handleCancelPost = () => {
+    setIsCreatingPost(false);
+    setNewPostContent("");
   };
 
   return (
@@ -196,11 +216,6 @@ function Homefeed() {
               focused={focusedPost === index} //pass focus state to the styled component
               onClick={() => handlePostClick(index)} //pass click handler to the styled component
             >
-              <NewPostModel
-                isOpen={isCreatingPost}
-                onClose={() => setIsCreatingPost(false)}
-                onSubmit={handleCreatePost}
-              />
               <h4>Username</h4>
               <p>{_post.content}</p>
             </StyledPostBox>
@@ -239,17 +254,21 @@ function Homefeed() {
         </StyledSpideySelfieContainer>
       </StyledContainer>
       {/* "New Post" button */}
-      <StyledNewPostButton onClick={() => setIsCreatingPost(true)}>
+      <StyledNewPostButton onClick={handleNewPostButtonClick}>
         New Post
       </StyledNewPostButton>
 
       {/* Modal for creating a new post */}
       {isCreatingPost && (
-        <NewPostModel
-          isOpen={isCreatingPost}
-          onClose={() => setIsCreatingPost(false)}
-          onSubmit={handleCreatePost}
-        />
+        <StyledPostBox focused>
+          <textarea
+            placeholder="What's on your mind?"
+            value={newPostContent}
+            onChange={handleNewPostContentChange}
+          />
+          <button onClick={handleCreatePost}>Submit</button>
+          <button onClick={handleCancelPost}>Cancel</button>
+        </StyledPostBox>
       )}
     </>
   );

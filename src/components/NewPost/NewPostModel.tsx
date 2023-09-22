@@ -36,6 +36,7 @@ interface NewPostModelProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (content: string) => void;
+  focused?: boolean;
 }
 
 const NewPostModel: React.FC<NewPostModelProps> = ({
