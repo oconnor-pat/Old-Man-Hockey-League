@@ -148,6 +148,7 @@ const StyledWeather = styled.p`
 `;
 
 const StyledNewPostButton = styled.button`
+  margin-top: 20px;
   margin-left: 20px;
   height: 35px;
   width: 100px;
@@ -158,6 +159,45 @@ const StyledNewPostButton = styled.button`
   font-weight: bold;
   border: none;
   cursor: pointer;
+`;
+
+const StyledTextArea = styled.textarea`
+  width: 100%;
+  height: 100px;
+  border-radius: 10px;
+  margin-right: 20px;
+  margin-top: 20px;
+`;
+
+const StyledSubmitButton = styled.button`
+  height: 35px;
+  width: 100px;
+  border-radius: 10px;
+  background-color: #447bbe;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+`;
+
+const StyledCancelButton = styled.button`
+  height: 35px;
+  width: 100px;
+  border-radius: 10px;
+  background-color: #B11313;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+`;
+
+const StyledButtonsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 10px;
 `;
 
 function Homefeed() {
@@ -207,6 +247,10 @@ function Homefeed() {
 
   return (
     <>
+      {/* "New Post" button */}
+      <StyledNewPostButton onClick={handleNewPostButtonClick}>
+        New Post
+      </StyledNewPostButton>
       <StyledContainer>
         <StlyedHomefeed>
           <StyledTitle>Homefeed</StyledTitle>
@@ -253,21 +297,19 @@ function Homefeed() {
           </StyledNYCWeatherContainer>
         </StyledSpideySelfieContainer>
       </StyledContainer>
-      {/* "New Post" button */}
-      <StyledNewPostButton onClick={handleNewPostButtonClick}>
-        New Post
-      </StyledNewPostButton>
 
       {/* Modal for creating a new post */}
       {isCreatingPost && (
         <StyledPostBox focused>
-          <textarea
+          <StyledTextArea
             placeholder="What's on your mind?"
             value={newPostContent}
             onChange={handleNewPostContentChange}
           />
-          <button onClick={handleCreatePost}>Submit</button>
-          <button onClick={handleCancelPost}>Cancel</button>
+          <StyledButtonsContainer>
+          <StyledSubmitButton onClick={handleCreatePost}>Submit</StyledSubmitButton>
+          <StyledCancelButton onClick={handleCancelPost}>Cancel</StyledCancelButton>
+          </StyledButtonsContainer>
         </StyledPostBox>
       )}
     </>
