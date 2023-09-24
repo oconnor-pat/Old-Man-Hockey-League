@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -59,9 +59,9 @@ const StyledPostBox = styled.div<StyledPostBoxProps>`
     font-weight: bold;
   }
 
-  ${(props) =>
-    props.focused &&
-    `
+${(props) =>
+  props.focused &&
+  `
     position: fixed;
     top: 50%;
     left: 50%;
@@ -185,7 +185,7 @@ const StyledCancelButton = styled.button`
   height: 35px;
   width: 100px;
   border-radius: 10px;
-  background-color: #B11313;
+  background-color: #b11313;
   color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
@@ -205,6 +205,22 @@ function Homefeed() {
   const [isCreatingPost, setIsCreatingPost] = useState(false);
   const [userPosts, setUserPosts] = useState<Post[]>([]); // State to store user posts
   const [newPostContent, setNewPostContent] = useState(""); // State to store new post content
+
+  useEffect(() => {
+    // Retrieve user posts from local storage when the component mounts
+    const storedPosts = localStorage.getItem("userPosts");
+
+    // If user posts exist in local storage, set the userPosts state to the stored posts
+    if (storedPosts) {
+      const parsedPosts = JSON.parse(storedPosts);
+      setUserPosts(parsedPosts);
+    }
+  }, []);
+
+  const savePostsToLocalStorage = (posts: Post[]) => {
+    // Save user posts to local storage
+    localStorage.setItem("userPosts", JSON.stringify(posts));
+  };
 
   //Function to handle when a user clicks on a post
   const handlePostClick = (postIndex: number) => {
@@ -229,6 +245,13 @@ function Homefeed() {
       id: userPosts.length + 1,
       content: newPostContent,
     };
+
+    // Save the new post to local storage
+    const updatedPosts = [...userPosts, newPost];
+    setUserPosts(updatedPosts);
+
+    // Save the updated posts to local storage
+    savePostsToLocalStorage(updatedPosts);
 
     // Add the new post to the userPosts state
     setUserPosts([...userPosts, newPost]);
@@ -262,6 +285,8 @@ function Homefeed() {
             >
               <h4>Username</h4>
               <p>{_post.content}</p>
+              <button>Edit</button>
+              <button>Delete</button>
             </StyledPostBox>
           ))}
           ;
@@ -298,7 +323,7 @@ function Homefeed() {
         </StyledSpideySelfieContainer>
       </StyledContainer>
 
-      {/* Modal for creating a new post */}
+      {/* Model for creating a new post */}
       {isCreatingPost && (
         <StyledPostBox focused>
           <StyledTextArea
@@ -307,8 +332,12 @@ function Homefeed() {
             onChange={handleNewPostContentChange}
           />
           <StyledButtonsContainer>
-          <StyledSubmitButton onClick={handleCreatePost}>Submit</StyledSubmitButton>
-          <StyledCancelButton onClick={handleCancelPost}>Cancel</StyledCancelButton>
+            <StyledSubmitButton onClick={handleCreatePost}>
+              Submit
+            </StyledSubmitButton>
+            <StyledCancelButton onClick={handleCancelPost}>
+              Cancel
+            </StyledCancelButton>
           </StyledButtonsContainer>
         </StyledPostBox>
       )}
