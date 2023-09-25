@@ -277,15 +277,15 @@ function Homefeed() {
       <StyledContainer>
         <StlyedHomefeed>
           <StyledTitle>Homefeed</StyledTitle>
-          {userPosts.map((_post, index) => (
+          {userPosts.map((Post, index) => (
             <StyledPostBox
-              key={_post.id} // uses post id as key
+              key={Post.id} // uses post id as key
               focused={focusedPost === index} //pass focus state to the styled component
               onClick={() => handlePostClick(index)} //pass click handler to the styled component
             >
               <h4>Username</h4>
-              <p>{_post.content}</p>
-              <button>Edit</button>
+              <p>{Post.content}</p>
+                <button>Edit</button>
               <button>Delete</button>
             </StyledPostBox>
           ))}
