@@ -82,15 +82,6 @@ const StyledSpidey = styled.img`
   align-self: flex-start;
 `;
 
-const StyledSpideySelfieContainer = styled.div`
-  width: 50%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  position: relative;
-  flex-direction: column;
-`;
-
 const StyledBanner = styled.div`
   position: absolute;
   bottom: 0;
@@ -100,6 +91,9 @@ const StyledBanner = styled.div`
   background-color: #447bbe;
   opacity: 0.9;
   color: #fff;
+  visibility: hidden;
+  transition: visibility 0s opacity 0.3s ease;
+  pointer-events: none;
 
   div {
     display: flex;
@@ -115,6 +109,21 @@ const StyledBanner = styled.div`
     height: 50px;
     width: 50px;
     border-radius: 50%;
+  }
+`;
+
+const StyledSpideySelfieContainer = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position: relative;
+  flex-direction: column;
+
+  &:hover ${StyledBanner} {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 `;
 
