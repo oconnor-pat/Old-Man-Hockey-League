@@ -200,6 +200,37 @@ const StyledButtonsContainer = styled.div`
   margin-top: 10px;
 `;
 
+const StyledEditAndDeleteButtonsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: -12px;
+`;
+
+const StyledEditButton = styled.button`
+  height: 35px;
+  width: 100px;
+  border-radius: 10px;
+  background-color: #447bbe;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+`;
+
+const StyledDeleteButton = styled.button`
+  height: 35px;
+  width: 100px;
+  border-radius: 10px;
+  background-color: #b11313;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+`;
+
 function Homefeed() {
   const [focusedPost, setFocusedPost] = useState<number | null>(null);
   const [isCreatingPost, setIsCreatingPost] = useState(false);
@@ -285,8 +316,10 @@ function Homefeed() {
             >
               <h4>Username</h4>
               <p>{Post.content}</p>
-                <button>Edit</button>
-              <button>Delete</button>
+              <StyledEditAndDeleteButtonsContainer>
+                <StyledEditButton>Edit</StyledEditButton>
+                <StyledDeleteButton>Delete</StyledDeleteButton>
+              </StyledEditAndDeleteButtonsContainer>
             </StyledPostBox>
           ))}
           ;
