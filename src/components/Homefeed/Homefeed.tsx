@@ -229,6 +229,10 @@ const StyledDeleteButton = styled.button`
   font-weight: bold;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 10px #447bbe;
+  }
 `;
 
 function Homefeed() {
@@ -236,6 +240,8 @@ function Homefeed() {
   const [isCreatingPost, setIsCreatingPost] = useState(false);
   const [userPosts, setUserPosts] = useState<Post[]>([]); // State to store user posts
   const [newPostContent, setNewPostContent] = useState(""); // State to store new post content
+  const [editingPost, setEditingPost] = useState<Post | null>(null); // State to store the post being edited
+  const [editedContent, setEditedContent] = useState(""); // State to store the edited post content
 
   useEffect(() => {
     // Retrieve user posts from local storage when the component mounts
@@ -255,7 +261,14 @@ function Homefeed() {
 
   //Function to handle when a user clicks on a post
   const handlePostClick = (postIndex: number) => {
-    setFocusedPost(focusedPost === postIndex ? null : postIndex);
+    if (focusedPost === postIndex) {
+      // Close the edit mode if the post is already focused
+      setFocusedPost(null);
+    } else {
+      // Open the edit mode and populate the textarea with the post content
+      setFocusedPost(postIndex);
+      setNewPostContent(userPosts[postIndex].content);
+    }
   };
 
   // Function to handle when the "New Post" button is clicked
@@ -299,6 +312,50 @@ function Homefeed() {
     setNewPostContent("");
   };
 
+  // Function to handle deleting a post
+  const handleDeletePost = (postId: number) => {
+    // Filter out the post to be deleted from the userPosts array
+    const updatedPosts = userPosts.filter((post) => post.id !== postId);
+
+    // Save the updated posts to local storage
+    savePostsToLocalStorage(updatedPosts);
+
+    // Update the userPosts state to remove the deleted post
+    setUserPosts(updatedPosts);
+
+    // Close the edit mode if the deleted post was focused
+    if (focusedPost === postId) {
+      setFocusedPost(null);
+    }
+  };
+
+  const handleEditButtonClick = (post: Post) => {
+    setEditingPost(post);
+    setEditedContent(post.content);
+  };
+
+  const handleSaveEditedPost = (postId: number) => {
+    const updatedPosts = userPosts.map((post) =>
+      post.id === postId ? { ...post, content: editedContent } : post
+    );
+
+    // Save the updated posts to local storage
+    savePostsToLocalStorage(updatedPosts);
+
+    // Update the userPosts state
+    setUserPosts(updatedPosts);
+
+    // Clear editing state
+    setEditingPost(null);
+    setEditedContent("");
+  };
+
+  const handleCancelEdit = () => {
+    // Clear editing state
+    setEditingPost(null);
+    setEditedContent("");
+  };
+
   return (
     <>
       {/* "New Post" button */}
@@ -308,21 +365,51 @@ function Homefeed() {
       <StyledContainer>
         <StlyedHomefeed>
           <StyledTitle>Homefeed</StyledTitle>
-          {userPosts.map((Post, index) => (
+          {userPosts.map((post) => (
             <StyledPostBox
-              key={Post.id} // uses post id as key
-              focused={focusedPost === index} //pass focus state to the styled component
-              onClick={() => handlePostClick(index)} //pass click handler to the styled component
+              key={post.id}
+              focused={editingPost?.id === post.id}
+              onClick={() => handlePostClick(post.id)}
             >
               <h4>Username</h4>
-              <p>{Post.content}</p>
-              <StyledEditAndDeleteButtonsContainer>
-                <StyledEditButton>Edit</StyledEditButton>
-                <StyledDeleteButton>Delete</StyledDeleteButton>
-              </StyledEditAndDeleteButtonsContainer>
+              {editingPost?.id === post.id ? (
+                // Render text box for editing
+                <>
+                  <StyledTextArea
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                  />
+                  <StyledButtonsContainer>
+                    <StyledSubmitButton
+                      onClick={() => handleSaveEditedPost(post.id)}
+                    >
+                      Save
+                    </StyledSubmitButton>
+                    <StyledCancelButton onClick={() => handleCancelEdit()}>
+                      Cancel
+                    </StyledCancelButton>
+                  </StyledButtonsContainer>
+                </>
+              ) : (
+                // Render post content and edit/delete buttons in view mode
+                <>
+                  <p>{post.content}</p>
+                  <StyledEditAndDeleteButtonsContainer>
+                    <StyledEditButton
+                      onClick={() => handleEditButtonClick(post)}
+                    >
+                      Edit
+                    </StyledEditButton>
+                    <StyledDeleteButton
+                      onClick={() => handleDeletePost(post.id)}
+                    >
+                      Delete
+                    </StyledDeleteButton>
+                  </StyledEditAndDeleteButtonsContainer>
+                </>
+              )}
             </StyledPostBox>
           ))}
-          ;
           <br />
         </StlyedHomefeed>
         <StyledSpideySelfieContainer>
