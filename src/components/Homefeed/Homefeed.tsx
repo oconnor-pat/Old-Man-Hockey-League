@@ -422,13 +422,10 @@ function Homefeed() {
           <br />
         </StlyedHomefeed>
         <StyledSpideySelfieContainer>
-          <StyledSpidey
-            src="../src/assets/images/spideyman.webp"
-            alt="spidey"
-          />
+          <StyledSpidey src="/src/assets/images/spideyman.webp" alt="spidey" />
           <StyledBanner>
             <div>
-              <img src="../src/assets/images/avatar.jpeg" alt="spideyboy" />
+              <img src="/src/assets/images/avatar.jpeg" alt="spideyboy" />
               <p>Spider-Man</p>
               <p>15.3 million followers</p>
             </div>
@@ -446,7 +443,7 @@ function Homefeed() {
             </StyledProfileBio>
           </StyledBanner>
           <StyledNYCWeatherContainer>
-            <StyledNYCImage src="../src/assets/images/NYC.webp" alt="NYC" />
+            <StyledNYCImage src="/src/assets/images/NYC.webp" alt="NYC" />
             <StyledWeather>NYC: Weather</StyledWeather>
           </StyledNYCWeatherContainer>
         </StyledSpideySelfieContainer>
