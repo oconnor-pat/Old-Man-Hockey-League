@@ -148,18 +148,23 @@ const StyledProfileBio = styled.div`
 // I dont know why these don't work yet. Update: I figured it out.
 const StyledNYCWeatherContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  border: 2px solid #447bbe;
+  flex-direction: row;
   align-items: center;
 `;
 
 const StyledNYCImage = styled.img`
+  border: 2px solid #447bbe;
+  width: 50%;
   height: auto;
-  width: 100%;
 `;
 
 const StyledWeather = styled.p`
   font-size: 1.2rem;
   color: #fff;
+  margin-top: 10px;
+  text-align: center;
+  width: 50%;
 `;
 
 const StyledNewPostButton = styled.button`
@@ -249,6 +254,26 @@ const StyledDeleteButton = styled.button`
     box-shadow: 0 0 10px #447bbe;
   }
 `;
+
+// Helper function to get the weather icon based on the weather description
+function getWeatherIcon(description: string) {
+  switch (description.toLowerCase()) {
+    case "clear sky":
+      return <i className="bi bi-brightness-high"></i>;
+    case "few clouds":
+      return <i className="bi bi-cloud-sun"></i>;
+    case "scattered clouds":
+    case "broken clouds":
+    case "overcast clouds":
+      return <i className="bi bi-cloud"></i>;
+    case "rain":
+    case "light rain":
+      return <i className="bi bi-cloud-rain"></i>;
+
+    default:
+      return <i className="bi bi-question-circle"></i>;
+  }
+}
 
 function Homefeed() {
   const [focusedPost, setFocusedPost] = useState<number | null>(null);
@@ -478,7 +503,8 @@ function Homefeed() {
             <StyledNYCImage src="/assets/images/NYC.webp" alt="NYC" />
             {weatherData && (
               <StyledWeather>
-                New York: {weatherData.description}, {weatherData.temp}°F
+                New York: {weatherData.description}
+                {getWeatherIcon(weatherData.description)} {weatherData.temp}°F
               </StyledWeather>
             )}
           </StyledNYCWeatherContainer>
