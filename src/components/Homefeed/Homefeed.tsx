@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { WEATHER_API_URL } from "../../api";
 
 //Interfaces
 interface StyledPostBoxProps {
@@ -10,6 +11,11 @@ interface StyledPostBoxProps {
 interface Post {
   id: number;
   content: string;
+}
+
+interface WeatherData {
+  description: string;
+  temp: number;
 }
 
 //Styled Components
@@ -246,11 +252,12 @@ const StyledDeleteButton = styled.button`
 
 function Homefeed() {
   const [focusedPost, setFocusedPost] = useState<number | null>(null);
-  const [isCreatingPost, setIsCreatingPost] = useState(false);
+  const [isCreatingPost, setIsCreatingPost] = useState(false); // State to track if the user is creating a new post
   const [userPosts, setUserPosts] = useState<Post[]>([]); // State to store user posts
   const [newPostContent, setNewPostContent] = useState(""); // State to store new post content
   const [editingPost, setEditingPost] = useState<Post | null>(null); // State to store the post being edited
   const [editedContent, setEditedContent] = useState(""); // State to store the edited post content
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null); // State to store the weather data
 
   useEffect(() => {
     // Retrieve user posts from local storage when the component mounts
@@ -261,6 +268,31 @@ function Homefeed() {
       const parsedPosts = JSON.parse(storedPosts);
       setUserPosts(parsedPosts);
     }
+  }, []);
+
+  useEffect(() => {
+    //Fetch current weather data from OpenWeather API
+    fetch(`${WEATHER_API_URL}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Extract the weather description and temperature from the API response
+        const weatherDescription = data.list[0].weather[0].description;
+        const temperature = Math.round(data.list[0].main.temp);
+
+        // Update the weather data state with the weather description and temperature
+        setWeatherData({
+          description: weatherDescription,
+          temp: temperature,
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching weather data: ", error);
+      });
   }, []);
 
   const savePostsToLocalStorage = (posts: Post[]) => {
@@ -444,7 +476,11 @@ function Homefeed() {
           </StyledBanner>
           <StyledNYCWeatherContainer>
             <StyledNYCImage src="/assets/images/NYC.webp" alt="NYC" />
-            <StyledWeather>NYC: Weather</StyledWeather>
+            {weatherData && (
+              <StyledWeather>
+                New York: {weatherData.description}, {weatherData.temp}°F
+              </StyledWeather>
+            )}
           </StyledNYCWeatherContainer>
         </StyledSpideySelfieContainer>
       </StyledContainer>
