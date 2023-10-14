@@ -268,6 +268,8 @@ function getWeatherIcon(description: string) {
       return <i className="bi bi-cloud"></i>;
     case "rain":
     case "light rain":
+      case "moderate rain":
+      case "heavy rain":
       return <i className="bi bi-cloud-rain"></i>;
 
     default:
