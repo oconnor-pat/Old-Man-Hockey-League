@@ -141,7 +141,7 @@ const StyledProfileBio = styled.div`
   margin-top: 10px;
   padding-left: 20px;
   padding-top: 20px;
-  background-color: #161616;
+  background-color: #02131D;
   border-radius: 10px;
 `;
 
@@ -160,11 +160,16 @@ const StyledNYCImage = styled.img`
 `;
 
 const StyledWeather = styled.p`
-  font-size: 1.2rem;
-  color: #fff;
+  font-size: 1.8rem;
+  color: #447bbe;
   margin-top: 10px;
   text-align: center;
   width: 50%;
+`;
+
+const StyledNewYorkText = styled.p`
+  font-size: 2.3rem;
+  color: #fff;
 `;
 
 const StyledNewPostButton = styled.button`
@@ -268,8 +273,8 @@ function getWeatherIcon(description: string) {
       return <i className="bi bi-cloud"></i>;
     case "rain":
     case "light rain":
-      case "moderate rain":
-      case "heavy rain":
+    case "moderate rain":
+    case "heavy rain":
       return <i className="bi bi-cloud-rain"></i>;
 
     default:
@@ -505,7 +510,9 @@ function Homefeed() {
             <StyledNYCImage src="/assets/images/NYC.webp" alt="NYC" />
             {weatherData && (
               <StyledWeather>
-                New York: {weatherData.description}
+                <StyledNewYorkText>
+                  New York: {weatherData.description}
+                </StyledNewYorkText>
                 {getWeatherIcon(weatherData.description)} {weatherData.temp}°F
               </StyledWeather>
             )}

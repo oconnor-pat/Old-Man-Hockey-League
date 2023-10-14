@@ -7,7 +7,7 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #333;
+  background-color: #B11313;
   width: 100%;
   height: 50px;
 `;
