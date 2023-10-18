@@ -65,7 +65,7 @@ function LandingPage() {
     password: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setRegistrationData({
       ...registrationData,
@@ -73,12 +73,9 @@ function LandingPage() {
     });
   };
 
-  const handleRegistration = async (event) => {
-    event.preventDefault();
-
-    // Make an HTTP request to register the user with registrationData
+  const handleRegistration = async () => {
     try {
-      const response = await fetch("/auth/register", {
+      const response = await fetch("http://localhost:8000/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,19 +109,39 @@ function LandingPage() {
     setShowRegisterForm(true);
   };
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (showLoginForm) {
       // Handle login form submission
-      const loginSuccessful = await performLogin(); // Replace with your login logic
+      try {
+        const response = await fetch("http://localhost:8000/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: registrationData.email, // Use the email input from your state
+            password: registrationData.password, // Use the password input from your state
+          }),
+        });
 
-      if (loginSuccessful) {
-        navigate("/homefeed");
+        if (response.status === 200) {
+          // Login successful
+          const userData = await response.json();
+          console.log("Login successful:", userData);
+          // navigate to another page here
+          navigate("/homefeed");
+        } else {
+          // Login failed
+          const errorData = await response.json();
+          console.error("Login failed:", errorData);
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
       }
     } else if (showRegisterForm) {
-      // Handle registration form submission
-      handleRegistration(); // Use the handleRegistration function to submit the registration form
+      handleRegistration(); // Calls the registration function for registration
     }
   };
 
@@ -132,10 +149,10 @@ function LandingPage() {
     <div>
       <StyledTitle>Welcome to WEB</StyledTitle>
       <StyledButtonContainer>
-      <StyledLoginButton onClick={handleLoginClick}>Login</StyledLoginButton>
-      <StyledRegisterButton onClick={handleRegisterClick}>
-        Register
-      </StyledRegisterButton>
+        <StyledLoginButton onClick={handleLoginClick}>Login</StyledLoginButton>
+        <StyledRegisterButton onClick={handleRegisterClick}>
+          Register
+        </StyledRegisterButton>
       </StyledButtonContainer>
 
       {showLoginForm && (

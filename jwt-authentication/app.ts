@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import { User } from "./models/user";
+import bcrypt from "bcrypt";
 
-// Create the express app and import the type of app from express;
 const app: Application = express();
 
 // Cors
@@ -84,6 +84,48 @@ app.post("/auth/register", async (req, res) => {
     res.status(400).json({
       status: 400,
       message: "Failed to create new user. Please try again",
+    });
+  }
+});
+
+// User API to login
+app.post("/auth/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check if the user exists in the database
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: "User not found",
+      });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    // Set up proper password hashing library like bcrypt
+    // to compare the hashed password from the database with the provided password.
+    if (!passwordMatch) {
+      return res.status(401).json({
+        status: 401,
+        message: "Incorrect password",
+      });
+    }
+
+    // Login successful
+    res.status(200).json({
+      status: 200,
+      success: true,
+      message: "Login successful",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 500,
+      message: "Failed to process login request",
     });
   }
 });
