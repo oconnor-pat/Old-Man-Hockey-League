@@ -46,14 +46,21 @@ app.post("/auth/register", async (req, res) => {
   try {
     // ** Get The User Data From Body ;
     const user = req.body;
+
     // ** destructure the information from user;
-    const { name, email, password } = user;
+    const { name, email, username, password } = user;
+
     // ** Check the email all ready exist in database or not ;
     // ** Import the user model from "./models/user";
     const EmailAlreadyExists = await User.findOne({
       email: email,
     });
-    // ** Add a condition if the user exist we will send the response as email all ready exist
+
+    const UsernameAlreadyExists = await User.findOne({
+      username: username,
+    });
+
+    // Condition if the email exists to send a response to the client;
     if (EmailAlreadyExists) {
       res.status(400).json({
         status: 400,
@@ -61,6 +68,18 @@ app.post("/auth/register", async (req, res) => {
       });
       return;
     }
+
+    // Condition if the user exists to send a response to the client;
+    if (UsernameAlreadyExists) {
+      res.status(400).json({
+        status: 400,
+        message: "Username already in use",
+      });
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     // ** if not create a new user ;
     // !! Don't save the password as plain text in db . I am saving just for demonstration.
     // ** You can use bcrypt to hash the plain password.
@@ -68,8 +87,10 @@ app.post("/auth/register", async (req, res) => {
     const newUser = await User.create({
       name,
       email,
-      password,
+      username,
+      password: hashedPassword,
     });
+
     // Send the newUser as response;
     res.status(200).json({
       status: 201,

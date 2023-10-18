@@ -62,16 +62,9 @@ function LandingPage() {
   const [registrationData, setRegistrationData] = useState({
     name: "",
     email: "",
+    username: "",
     password: "",
   });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setRegistrationData({
-      ...registrationData,
-      [name]: value,
-    });
-  };
 
   const handleRegistration = async () => {
     try {
@@ -109,7 +102,7 @@ function LandingPage() {
     setShowRegisterForm(true);
   };
 
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (showLoginForm) {
@@ -145,6 +138,35 @@ function LandingPage() {
     }
   };
 
+  // Separate onChange handlers for each input field
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRegistrationData({
+      ...registrationData,
+      name: e.target.value,
+    });
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRegistrationData({
+      ...registrationData,
+      email: e.target.value,
+    });
+  };
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRegistrationData({
+      ...registrationData,
+      username: e.target.value,
+    });
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRegistrationData({
+      ...registrationData,
+      password: e.target.value,
+    });
+  };
+
   return (
     <div>
       <StyledTitle>Welcome to WEB</StyledTitle>
@@ -156,7 +178,7 @@ function LandingPage() {
       </StyledButtonContainer>
 
       {showLoginForm && (
-        <StyledForm onSubmit={handleFormSubmit}>
+        <StyledForm onSubmit={handleLogin}>
           <label htmlFor="email">Email:</label>
           <input type="email" id="email" name="email" required />
           <br />
@@ -168,14 +190,14 @@ function LandingPage() {
       )}
 
       {showRegisterForm && (
-        <StyledForm onSubmit={handleFormSubmit}>
+        <StyledForm onSubmit={handleRegistration}>
           <label htmlFor="name">Name:</label>
           <input
             type="text"
             id="name"
             name="name"
             value={registrationData.name}
-            onChange={handleInputChange}
+            onChange={handleNameChange}
             required
           />
           <br />
@@ -185,7 +207,17 @@ function LandingPage() {
             id="email"
             name="email"
             value={registrationData.email}
-            onChange={handleInputChange}
+            onChange={handleEmailChange}
+            required
+          />
+          <br />
+          <label htmlFor="username">Username:</label> {/* Add this */}
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={registrationData.username}
+            onChange={handleUsernameChange}
             required
           />
           <br />
@@ -195,7 +227,7 @@ function LandingPage() {
             id="password"
             name="password"
             value={registrationData.password}
-            onChange={handleInputChange}
+            onChange={handlePasswordChange}
             required
           />
           <br />
