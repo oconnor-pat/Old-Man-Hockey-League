@@ -1,9 +1,12 @@
-//import React from 'react'
+import Navbar from "../Navbar/Navbar";
 
 function Discover() {
   return (
-    <div>Discover</div>
-  )
+    <>
+      <Navbar />
+      <div>Discover</div>
+    </>
+  );
 }
 
-export default Discover
+export default Discover;

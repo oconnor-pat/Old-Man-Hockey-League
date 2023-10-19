@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { WEATHER_API_URL } from "../../api";
+import Navbar from "../Navbar/Navbar";
 
 //Interfaces
 interface StyledPostBoxProps {
@@ -141,7 +142,7 @@ const StyledProfileBio = styled.div`
   margin-top: 10px;
   padding-left: 20px;
   padding-top: 20px;
-  background-color: #02131D;
+  background-color: #02131d;
   border-radius: 10px;
 `;
 
@@ -431,7 +432,7 @@ function Homefeed() {
 
   return (
     <>
-      {/* "New Post" button */}
+      <Navbar />
       <StyledNewPostButton onClick={handleNewPostButtonClick}>
         New Post
       </StyledNewPostButton>
