@@ -1,6 +1,6 @@
 //import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Homefeed from "../src/components/Homefeed/Homefeed";
+import Homefeed from "./components/Homefeed/Homefeed";
 import Profile from "../src/components/Profile/Profile";
 import NavBar from "../src/components/Navbar/Navbar";
 import Discover from "./components/Discover/Discover";

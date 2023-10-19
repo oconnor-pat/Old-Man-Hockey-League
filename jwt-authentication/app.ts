@@ -2,9 +2,9 @@ import express from "express";
 import { Application } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
 import { User } from "./models/user";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 
 const app: Application = express();
 
@@ -22,19 +22,21 @@ app.use(
   })
 );
 
-// Declare The PORT
-const PORT: number = 8000;
+// PORT
+const PORT = process.env.PORT || 8000;
 app.get("/", (req, res) => {
   res.send("<h1>Welcome To JWT Authentication </h1>");
 });
 
-// Listen the server
+// Listen for the server on PORT
 app.listen(PORT, async () => {
   console.log(`🗄️ Server Fire on http://localhost:${PORT}`);
 
-  // Connect To The Database
+  // Connect to Database
   try {
-    await mongoose.connect(process.env.DATABASE_URL as string);
+    const databaseURL =
+      process.env.DATABASE_URL || "mongodb://localhost:27017/Web";
+    await mongoose.connect(databaseURL);
     console.log("🛢️ Connected To Database");
   } catch (error) {
     console.log("⚠️ Error connecting to database");
@@ -112,12 +114,21 @@ app.post("/auth/register", async (req, res) => {
 // User API to login
 app.post("/auth/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
+
+    console.log(
+      "Received data from frontend - Username:",
+      username,
+      "Password:",
+      password
+    );
 
     // Check if the user exists in the database
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
 
     if (!user) {
+      console.log("User not found in the database for username:", username);
+
       return res.status(404).json({
         status: 404,
         message: "User not found",
@@ -129,6 +140,8 @@ app.post("/auth/login", async (req, res) => {
     // Set up proper password hashing library like bcrypt
     // to compare the hashed password from the database with the provided password.
     if (!passwordMatch) {
+      console.log("Password mismatch for username:", username);
+
       return res.status(401).json({
         status: 401,
         message: "Incorrect password",
@@ -143,7 +156,7 @@ app.post("/auth/login", async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log(error);
+    console.log("Error logging in:", error);
     res.status(500).json({
       status: 500,
       message: "Failed to process login request",

@@ -65,6 +65,10 @@ function LandingPage() {
     username: "",
     password: "",
   });
+  const [loginData, setLoginData] = useState({
+    username: "",
+    password: "",
+  });
 
   const handleRegistration = async () => {
     try {
@@ -114,8 +118,8 @@ function LandingPage() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: registrationData.email, // Use the email input from your state
-            password: registrationData.password, // Use the password input from your state
+            username: loginData.username, // Use the username input from your state
+            password: loginData.password, // Use the password input from your state
           }),
         });
 
@@ -138,31 +142,58 @@ function LandingPage() {
     }
   };
 
-  // Separate onChange handlers for each input field
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Separate onChange handlers for each input field in the registration form
+  const handleRegistrationNameChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRegistrationData({
       ...registrationData,
       name: e.target.value,
     });
   };
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRegistrationEmailChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRegistrationData({
       ...registrationData,
       email: e.target.value,
     });
   };
 
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRegistrationUsernameChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRegistrationData({
       ...registrationData,
       username: e.target.value,
     });
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRegistrationPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRegistrationData({
       ...registrationData,
+      password: e.target.value,
+    });
+  };
+
+  // Separate onChange handlers for each input field in the login form
+  const handleLoginUsernameChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setLoginData({
+      ...loginData,
+      username: e.target.value,
+    });
+  };
+
+  const handleLoginPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setLoginData({
+      ...loginData,
       password: e.target.value,
     });
   };
@@ -179,11 +210,25 @@ function LandingPage() {
 
       {showLoginForm && (
         <StyledForm onSubmit={handleLogin}>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" required />
+          <label htmlFor="username">Username:</label>
+          <input
+            type="username"
+            id="username"
+            name="username"
+            value={loginData.username}
+            onChange={handleLoginUsernameChange}
+            required
+          />
           <br />
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={loginData.password}
+            onChange={handleLoginPasswordChange}
+            required
+          />
           <br />
           <input type="submit" value="Login" />
         </StyledForm>
@@ -197,7 +242,7 @@ function LandingPage() {
             id="name"
             name="name"
             value={registrationData.name}
-            onChange={handleNameChange}
+            onChange={handleRegistrationNameChange}
             required
           />
           <br />
@@ -207,17 +252,17 @@ function LandingPage() {
             id="email"
             name="email"
             value={registrationData.email}
-            onChange={handleEmailChange}
+            onChange={handleRegistrationEmailChange}
             required
           />
           <br />
-          <label htmlFor="username">Username:</label> {/* Add this */}
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
             name="username"
             value={registrationData.username}
-            onChange={handleUsernameChange}
+            onChange={handleRegistrationUsernameChange}
             required
           />
           <br />
@@ -227,7 +272,7 @@ function LandingPage() {
             id="password"
             name="password"
             value={registrationData.password}
-            onChange={handlePasswordChange}
+            onChange={handleRegistrationPasswordChange}
             required
           />
           <br />
