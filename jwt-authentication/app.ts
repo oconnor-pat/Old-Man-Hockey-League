@@ -5,6 +5,7 @@ import cors from "cors";
 import { User } from "./models/user";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import path from "path";
 
 const app: Application = express();
 
@@ -21,6 +22,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // PORT
 const PORT = process.env.PORT || 8000;
