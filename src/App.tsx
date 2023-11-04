@@ -3,7 +3,7 @@ import Homefeed from "./components/Homefeed/Homefeed";
 import Profile from "../src/components/Profile/Profile";
 import Discover from "./components/Discover/Discover";
 import GlobalStyles from "./utils/GlobalStyles";
-import LandingPage from "../src/components/LoginPage/LandingPage";
+import LandingPage from "./components/Landingpage/LandingPage";
 
 function App() {
   return (
