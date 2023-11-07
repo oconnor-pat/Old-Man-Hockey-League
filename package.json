@@ -7,7 +7,7 @@
     "node": "20.9.0"
   },
   "scripts": {
-    "start": "npm run dev",
+    "start": "vite",
     "dev": "vite",
     "build": "vite build",
     "postinstall": "npm install -g vite",
