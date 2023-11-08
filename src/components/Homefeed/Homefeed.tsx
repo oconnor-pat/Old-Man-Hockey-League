@@ -333,15 +333,17 @@ function Homefeed() {
     localStorage.setItem("userPosts", JSON.stringify(posts));
   };
 
-  //Function to handle when a user clicks on a post
   const handlePostClick = (postIndex: number) => {
-    if (focusedPost === postIndex) {
-      // Close the edit mode if the post is already focused
-      setFocusedPost(null);
-    } else {
-      // Open the edit mode and populate the textarea with the post content
-      setFocusedPost(postIndex);
-      setNewPostContent(userPosts[postIndex].content);
+    if (userPosts[postIndex]) {
+      // Check if the post at the given index exists before accessing its content
+      if (focusedPost === postIndex) {
+        // Close the edit mode if the post is already focused
+        setFocusedPost(null);
+      } else {
+        // Open the edit mode and populate the textarea with the post content
+        setFocusedPost(postIndex);
+        setNewPostContent(userPosts[postIndex].content);
+      }
     }
   };
 

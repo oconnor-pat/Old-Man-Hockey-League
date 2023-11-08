@@ -55,6 +55,9 @@ const StyledRegisterButton = styled.button`
   cursor: pointer;
 `;
 
+const apiUrl =
+  process.env.NODE_ENV === "production" ? "" : "http://localhost:8000";
+
 function LandingPage() {
   const navigate = useNavigate();
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -72,7 +75,7 @@ function LandingPage() {
 
   const handleRegistration = async () => {
     try {
-      const response = await fetch("http://localhost:8000/auth/register", {
+      const response = await fetch(`${apiUrl}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +115,7 @@ function LandingPage() {
     if (showLoginForm) {
       // Handle login form submission
       try {
-        const response = await fetch("http://localhost:8000/auth/login", {
+        const response = await fetch(`${apiUrl}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
