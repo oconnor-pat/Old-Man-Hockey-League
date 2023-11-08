@@ -121,8 +121,8 @@ function LandingPage() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username: loginData.username, // Use the username input from your state
-            password: loginData.password, // Use the password input from your state
+            username: loginData.username,
+            password: loginData.password,
           }),
         });
 
