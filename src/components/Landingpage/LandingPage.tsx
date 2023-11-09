@@ -55,9 +55,6 @@ const StyledRegisterButton = styled.button`
   cursor: pointer;
 `;
 
-const apiUrl =
-  process.env.NODE_ENV === "production" ? "" : "http://localhost:8000";
-
 function LandingPage() {
   const navigate = useNavigate();
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -75,13 +72,16 @@ function LandingPage() {
 
   const handleRegistration = async () => {
     try {
-      const response = await fetch(`${apiUrl}/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(registrationData),
-      });
+      const response = await fetch(
+        "https://bew-584382a4b042.herokuapp.com/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(registrationData),
+        }
+      );
 
       if (response.status === 201) {
         // Registration successful
@@ -115,16 +115,19 @@ function LandingPage() {
     if (showLoginForm) {
       // Handle login form submission
       try {
-        const response = await fetch(`${apiUrl}/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: loginData.username,
-            password: loginData.password,
-          }),
-        });
+        const response = await fetch(
+          "https://bew-584382a4b042.herokuapp.com/auth/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: loginData.username,
+              password: loginData.password,
+            }),
+          }
+        );
 
         if (response.status === 200) {
           // Login successful
