@@ -55,10 +55,7 @@ const StyledRegisterButton = styled.button`
   cursor: pointer;
 `;
 
-const apiUrl =
-  import.meta.env.MODE === 'development'
-    ? 'http://localhost:8000'
-    : 'https://bew-584382a4b042.herokuapp.com';
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 function LandingPage() {
   const navigate = useNavigate();
