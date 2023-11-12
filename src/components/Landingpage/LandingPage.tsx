@@ -56,9 +56,9 @@ const StyledRegisterButton = styled.button`
 `;
 
 const apiUrl =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8000"
-    : "https://bew-584382a4b042.herokuapp.com";
+  import.meta.env.MODE === 'development'
+    ? 'http://localhost:8000'
+    : 'https://bew-584382a4b042.herokuapp.com';
 
 function LandingPage() {
   const navigate = useNavigate();
