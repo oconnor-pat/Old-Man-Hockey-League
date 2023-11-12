@@ -55,6 +55,11 @@ const StyledRegisterButton = styled.button`
   cursor: pointer;
 `;
 
+const apiUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8000"
+    : "https://bew-584382a4b042.herokuapp.com";
+
 function LandingPage() {
   const navigate = useNavigate();
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -70,18 +75,18 @@ function LandingPage() {
     password: "",
   });
 
-  const handleRegistration = async () => {
+  const handleRegistration = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
     try {
-      const response = await fetch(
-        "https://bew-584382a4b042.herokuapp.com/auth/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(registrationData),
-        }
-      );
+      const response = await fetch(`${apiUrl}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registrationData),
+      });
 
       if (response.status === 201) {
         // Registration successful
@@ -115,19 +120,16 @@ function LandingPage() {
     if (showLoginForm) {
       // Handle login form submission
       try {
-        const response = await fetch(
-          "https://bew-584382a4b042.herokuapp.com/auth/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: loginData.username,
-              password: loginData.password,
-            }),
-          }
-        );
+        const response = await fetch(`${apiUrl}/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: loginData.username,
+            password: loginData.password,
+          }),
+        });
 
         if (response.status === 200) {
           // Login successful
@@ -135,16 +137,18 @@ function LandingPage() {
           console.log("Login successful:", userData);
           // navigate to another page here
           navigate("/homefeed");
+        } else if (response.status === 404) {
+          console.error("User not found");
+        } else if (response.status === 401) {
+          console.error("Incorrect password");
         } else {
-          // Login failed
-          const errorData = await response.json();
-          console.error("Login failed:", errorData);
+          console.error("Unexpected error", await response.text());
         }
       } catch (error) {
         console.error("Error during login:", error);
       }
     } else if (showRegisterForm) {
-      handleRegistration(); // Calls the registration function for registration
+      handleRegistration(event); // Calls the registration function for registration
     }
   };
 
