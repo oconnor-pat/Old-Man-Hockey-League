@@ -8,7 +8,7 @@ export default defineConfig({
     mode: 'production',
     outDir: 'dist', // Specify the output directory for the build
     rollupOptions: {
-      input: 'src/index.tsx', // Adjust this based on your project structure
+      input: 'src/main.tsx', // Adjust this based on your project structure
     },
   },
   plugins: [react()],
