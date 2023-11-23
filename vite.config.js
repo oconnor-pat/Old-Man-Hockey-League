@@ -6,9 +6,9 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   build: {
     mode: 'production',
-    outDir: 'dist', // Specify the output directory for the build
+    outDir: 'dist', 
     rollupOptions: {
-      input: 'src/main.tsx', // Adjust this based on your project structure
+      input: 'src/main.tsx',
     },
   },
   plugins: [react()],
@@ -16,4 +16,5 @@ export default defineConfig({
     port: process.env.PORT || 3000,
     host: '0.0.0.0',
   },
+  base: '/',
 });
