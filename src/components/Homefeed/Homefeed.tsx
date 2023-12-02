@@ -27,7 +27,7 @@ const StyledContainer = styled.div`
   padding: 20px;
 `;
 
-const StlyedHomefeed = styled.div`
+const StyledHomefeed = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
