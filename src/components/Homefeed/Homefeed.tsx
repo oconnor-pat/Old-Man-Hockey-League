@@ -439,7 +439,7 @@ function Homefeed() {
         New Post
       </StyledNewPostButton>
       <StyledContainer>
-        <StlyedHomefeed>
+        <StyledHomefeed>
           <StyledTitle>Homefeed</StyledTitle>
           {userPosts.map((post) => (
             <StyledPostBox
@@ -487,7 +487,7 @@ function Homefeed() {
             </StyledPostBox>
           ))}
           <br />
-        </StlyedHomefeed>
+        </StyledHomefeed>
         <StyledSpideySelfieContainer>
           <StyledSpidey src="/assets/images/spideyman.webp" alt="spidey" />
           <StyledBanner>
