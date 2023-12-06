@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -27,6 +28,13 @@ If you are developing a production application, we recommend updating the config
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 =======
-# Web
-A Twitter (or I guess "X" now) like clone designed to mimic the in game social media feed from one of my favorite games of recent memory "Spider-Man"
+>>>>>>> origin/main
+=======
+# Old-Man-Hockey-League
+
+This is kind of a passion project of mine. Coming from playing hockey my entire life, and it basically taking up my life for a very long time. But after all the years of competitive play, it was time to join my dad and his buddies for a night of casual skating, and beer... lots of beer.
+
+But in saying that, it's always been tough for myself and another gentleman who run the league to make sure people are available and coming to the rink on any given night. Which is why I wanted to develop an application that would work something like a roster application to keep track of each team, who they, how many they have, and if they've paid for the session or not (lol).
+
+I chose to scaffold this application from another passion project of mine. It made it a bit easier to get going since I was already familiar (mostly from trial and error) with React, TypeScript, and Vite.
 >>>>>>> origin/main
