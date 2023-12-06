@@ -83,7 +83,7 @@ ${(props) =>
     box-shadow: 0 0 10px #447BBE;
   `;
 
-const StyledSpidey = styled.img`
+const StyledOMHL = styled.img`
   height: auto;
   width: 100%;
   align-self: flex-start;
@@ -489,7 +489,10 @@ function Homefeed() {
           <br />
         </StyledHomefeed>
         <StyledSpideySelfieContainer>
-          <StyledSpidey src="/assets/images/spideyman.webp" alt="spidey" />
+          <StyledOMHL
+            src="/assets/images/OMHL.jpg"
+            alt="Old Man Hockey League"
+          />
           <StyledBanner>
             <div>
               <img src="/assets/images/avatar.jpeg" alt="spideyboy" />

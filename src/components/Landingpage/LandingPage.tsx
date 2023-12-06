@@ -55,7 +55,7 @@ const StyledRegisterButton = styled.button`
   cursor: pointer;
 `;
 
-const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8001";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -207,7 +207,7 @@ function LandingPage() {
 
   return (
     <div>
-      <StyledTitle>Welcome to WEB</StyledTitle>
+      <StyledTitle>Welcome to Old Man Hockey League</StyledTitle>
       <StyledButtonContainer>
         <StyledLoginButton onClick={handleLoginClick}>Login</StyledLoginButton>
         <StyledRegisterButton onClick={handleRegisterClick}>
